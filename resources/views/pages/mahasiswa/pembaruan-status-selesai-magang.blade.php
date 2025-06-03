@@ -55,7 +55,7 @@ $completeInternship = function () {
         $filePath = $this->bukti_surat_selesai_magang->store('surat-selesai-magang', 'public');
 
         // Update mahasiswa status
-        $updateData = ['status_magang' => 'selesai'];
+        $updateData = ['status_magang' => 'selesai magang'];
 
         if (\Schema::hasColumn('mahasiswa', 'bukti_surat_selesai_magang')) {
             $updateData['bukti_surat_selesai_magang'] = $filePath;

@@ -1,6 +1,6 @@
 <?php
 
-use function Livewire\Volt\{layout, rules, state, protect};
+use function Livewire\Volt\{layout, state};
 
 layout('components.layouts.user.main');
 
@@ -23,7 +23,7 @@ state([
     <h2 class="text-base leading-6 font-bold">Pengajuan Magang</h2>
 
     @if ($status == 'belum magang')
-        @if (is_null($pengajuanMagang))
+        @if ($pengajuanMagang === null)
             {{-- Belum pernah mengajukan --}}
             <x-mahasiswa.pengajuan-magang.belum-diajukan />
         @elseif ($pengajuanMagang == 'menunggu' || $pengajuanMagang == 'diterima')

@@ -23,16 +23,37 @@ state([
 ]);
 
 rules([
+    'nim' => ['required', 'string', 'min:10', 'regex:/^\d+$/'],
+    'nama' => ['required', 'string', 'max:255'],
+    'email' => ['required', 'email', 'max:255'],
+    'program_studi' => ['required', 'string', 'in:D4 Teknik Informatika,D4 Sistem Informasi Bisnis,D2 Pengembangan Piranti Lunak Situs'],
+    'angkatan' => ['required', 'string'],
+    'jenis_kelamin' => ['required', 'string', 'in:L,P'],
+    'tanggal_lahir' => ['required', 'date'],
+    'alamat' => ['required', 'string'],
     'password' => ['required', 'string', 'confirmed', Password::default()],
 ])->messages([
     'nim.required' => 'NIM tidak boleh kosong.',
     'nim.min' => 'NIM/NIP/NIDN harus terdiri dari minimal 10 karakter.',
     'nim.regex' => 'NIM/NIP/NIDN hanya boleh terdiri dari angka.',
+    'nama.required' => 'Nama tidak boleh kosong.',
+    'email.required' => 'Email tidak boleh kosong.',
+    'email.email' => 'Format email tidak valid.',
+    'program_studi.required' => 'Program studi harus dipilih.',
+    'program_studi.in' => 'Program studi yang dipilih tidak valid.',
+    'angkatan.required' => 'Angkatan tidak boleh kosong.',
+    'jenis_kelamin.required' => 'Jenis kelamin harus dipilih.',
+    'jenis_kelamin.in' => 'Jenis kelamin yang dipilih tidak valid.',
+    'tanggal_lahir.required' => 'Tanggal lahir tidak boleh kosong.',
+    'alamat.required' => 'Alamat tidak boleh kosong.',
     'password.required' => 'Password tidak boleh kosong.',
     'password.min' => 'Password harus terdiri dari minimal 8 karakter.',
+    'password.confirmed' => 'Konfirmasi password tidak cocok.',
 ]);
 
 $register = function (): void {
+    $this->validate();
+
     event(
         new Registered(
             ($mahasiswa = Mahasiswa::create([
@@ -80,7 +101,7 @@ $register = function (): void {
 
             <flux:field>
                 <flux:label>Email</flux:label>
-                <flux:input wire:model="email" type="text" required autofocus autocomplete="email"
+                <flux:input wire:model="email" type="email" required autofocus autocomplete="email"
                     placeholder="Email" />
                 <flux:error name="email" />
             </flux:field>
@@ -95,7 +116,8 @@ $register = function (): void {
             <flux:field>
                 <flux:label>Program Studi</flux:label>
                 <flux:input.group class="rounded-xl">
-                    <flux:select wire:model="program_studi">
+                    <flux:select wire:model="program_studi" placeholder="Pilih Program Studi">
+                        <flux:select.option value="">Pilih Program Studi</flux:select.option>
                         <flux:select.option value="D4 Teknik Informatika">D4 Teknik Informatika</flux:select.option>
                         <flux:select.option value="D4 Sistem Informasi Bisnis">D4 Sistem Informasi Bisnis
                         </flux:select.option>
@@ -115,17 +137,22 @@ $register = function (): void {
 
             <flux:field>
                 <flux:label>Jenis Kelamin</flux:label>
-                <flux:select placeholder="Jenis kelamin" wire:model="jenis_kelamin">
+                <flux:select placeholder="Pilih Jenis Kelamin" wire:model="jenis_kelamin">
+                    <flux:select.option value="">Pilih Jenis Kelamin</flux:select.option>
                     <flux:select.option value="L">Laki-laki</flux:select.option>
                     <flux:select.option value="P">Perempuan</flux:select.option>
                 </flux:select>
                 <flux:error name="jenis_kelamin" />
             </flux:field>
 
-            <flux:input label="Tanggal lahir" type="date" max="2999-12-31" wire:model="tanggal_lahir" />
+            <flux:field>
+                <flux:label>Tanggal Lahir</flux:label>
+                <flux:input wire:model="tanggal_lahir" type="date" max="2999-12-31" required />
+                <flux:error name="tanggal_lahir" />
+            </flux:field>
 
             <flux:field>
-                <flux:textarea wire:model="alamat" label="Alamat" placeholder="Domisili asal anda" />
+                <flux:textarea wire:model="alamat" label="Alamat" placeholder="Domisili asal anda" required />
                 <flux:error name="alamat" />
             </flux:field>
 

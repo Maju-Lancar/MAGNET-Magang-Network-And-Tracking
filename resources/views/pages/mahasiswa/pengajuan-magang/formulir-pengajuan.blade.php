@@ -2,7 +2,7 @@
 
 use function Livewire\Volt\{layout, rules, state, protect};
 
-layout('components.layouts.mahasiswa.main');
+layout('components.layouts.user.main');
 
 state([
     'mahasiswa' => auth('mahasiswa')->user(),
@@ -11,6 +11,7 @@ state([
 ?>
 
 <div class="text-black flex flex-col gap-6">
+    <x-slot:user>admin</x-slot:user>
     <div class="card bg-white shadow-md">
         <form action="{{ route('mahasiswa.store-pengajuan-magang') }}" method="POST" enctype="multipart/form-data"
             id="pengajuan-form">

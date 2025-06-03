@@ -13,9 +13,9 @@ return new class extends Migration {
         Schema::create('berkas_pengajuan_magang', function (Blueprint $table) {
             $table->id();
             $table->foreignId('mahasiswa_id')->constrained('mahasiswa')->onDelete('cascade');
-            $table->string('cv', 30);
-            $table->string('transkrip_nilai', 30);
-            $table->string('portfolio', 30)->nullable();
+            $table->string('cv');
+            $table->string('transkrip_nilai');
+            $table->string('portfolio')->nullable();
             $table->timestamps();
         });
     }
