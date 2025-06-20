@@ -794,7 +794,7 @@ $calculateStandardDeviation = function ($array) {
                                 <div class="flex flex-wrap gap-2 text-xs mt-2">
                                     <span
                                         class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full border border-blue-200">
-                                        {{ $internship->lowonganMagang->pekerjaan->nama }}
+                                        {{ ucfirst($internship->lowonganMagang->jenis_magang) }}
                                     </span>
                                     <span
                                         class="bg-green-100 text-green-700 px-3 py-1 rounded-full border border-green-200">
